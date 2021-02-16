@@ -4,6 +4,8 @@
 # There are 2 mandatory arguments :
 # arg1: the path to directory containing the species gtf and fasta files (uncompressed) with the following hirarchy: raw/species/ e.g (data/raw/Homo_Sapiens)
 # arg2: the feature that will be filtered for stats. this feature should exist in column 3 gtf file. e.g (exon, gene, transcript)
+# example: to calculate the stats of all genes of Homo Sapiens use the following
+# bash get_len_gc.sh dat/raw/Homo_Sapiens gene
 # There are 2 optional arguments to be used when you want to filter certain tag in column 9 gtf:
 # arg3: a flag to include or exclude the following (tag=value) argument. to include use -i , to exclude use -e
 # arg4: the name of the tag you want to filter tigetherr with the filtering value in the form of (tag=value). e.g (-i gene_biotype=protein_coding)
@@ -40,7 +42,7 @@ else
 
 	# extracting species name
 	sp="${sp_gtf##*/}"
-	sp="${sp%%_*}"
+	sp="${sp%%.*}"
 
 	## filtering feature from gtf
 	filt_gtf_name="${sp_gtf##*/}"
@@ -102,7 +104,7 @@ else
 	agg_csv_name=${stats_gtf_name/".gtf"/".csv"}
 	agg_csv_path="${out_dir}${agg_csv_name}"
 
-	awk -v sp="${sp}" -v fet="${fet}${tagieflag}${tagvalue}" -v total="${lc}" 'BEGIN{FS="\t"; OFS=","; print "species,"fet"_avg_gc,"fet"_avg_len,"fet"count"} { total_gc += $11; count_gc++; total_len +=$18; count_len++ } \
+	awk -v sp="${sp}" -v fet="${fet}_${tagieflag}_${tagvalue}" -v total="${lc}" 'BEGIN{FS="\t"; OFS=","; print "species,"fet"_avg_gc,"fet"_avg_len,"fet"_count"} { total_gc += $11; count_gc++; total_len +=$18; count_len++ } \
 	END { print sp,total_gc/count_gc,total_len/count_len,total}' $stats_gtf_path > $agg_csv_path
 
 fi
