@@ -34,25 +34,15 @@ else
 	# in case of choosing exon as feature, duplicate exon records are removed
 	if [ -z "${tagvalue}" ]
 	then
-		if [ $fet != "exon" ]
-		then
-		awk -v fet="${fet}" '$1 ~ /^[^Mm#]/ {if ($3 == fet) print}' $sp_gtf > $filt_gtf_path
-		else
-		awk -v fet="${fet}" '$1 ~ /^[^Mm#]/ {if ($3 == fet) print}' $sp_gtf | sort -u -t' ' -k18,18 > $filt_gtf_path
-		fi
+		awk -v fet="${fet}" '$1 ~ /^[^Mm#]/ {if ($3 == fet) print}' $sp_gtf | \
+		awk -v fet="${fet}" '{tagged=0; for(i=9; i<=NF; i++) { if($i==fet"_id") {value=$(i+1); tagged=1} if($i==fet"_id" && seen[value]!=1) {seen[value]=1; print $0 ;break} \
+		if(i==NF && tagged!=1) {print $0}}}'  > $filt_gtf_path
 	else
-        	if [ $fet != "exon" ]
-        	then
         	awk -v fet="${fet}" '$1 ~ /^[^Mm#]/ {if ($3 == fet) print}' $sp_gtf | \
-		awk -v tag="${tag}" -v val="${val}" '{for(i=1; i<=NF; i++) {if($i==tag) {tag_found=1} else if(tag_found==1 && index($i,val) != 0) {tag_found=0; print $0} else {tag_found=0}}}' > $filt_gtf_path
-        	else
-        	awk -v fet="${fet}" '$1 ~ /^[^Mm#]/ {if ($3 == fet) print}' $sp_gtf | \
-		awk -v tag="${tag}" -v val="${val}" '{for(i=1; i<=NF; i++) {if($i==tag) {tag_found=1} else if(tag_found==1 && index($i,val) != 0) {tag_found=0; print $0} else {tag_found=0}}}' | \
-		sort -u -t' ' -k18,18 > $filt_gtf_path
-        	fi
+		awk -v tag="${tag}" -v val="${val}" '{for(i=9; i<=NF; i++) {if($i==tag) {tag_found=1} else if(tag_found==1 && index($i,val) != 0) {tag_found=0; print $0} else {tag_found=0}}}' | \
+		awk -v fet="${fet}" '{tagged=0; for(i=9; i<=NF; i++) { if($i==fet"_id") {value=$(i+1); tagged=1} if($i==fet"_id" && seen[value]!=1) {seen[value]=1; print $0 ;break} \
+		if(i==NF && tagged!=1) {print $0}}}'> $filt_gtf_path
 	fi
-
-
 
 
 	lc=`cat $filt_gtf_path | wc -l`

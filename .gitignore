@@ -8,4 +8,4 @@ data/*/Saccharomyces_cerevisiae/*
 data/*/Caenorhabditis_elegans/*
 data/*/Mus_musculus/*
 data/*/Homo_sapiens/*
-
+*.swp
