@@ -1,0 +1,3 @@
+# This file contains ensemple ftp links to download gtf and fasta file for the genome of this species
+ftp://ftp.ensembl.org/pub/release-102/gtf/drosophila_melanogaster/Drosophila_melanogaster.BDGP6.28.102.chr.gtf.gz
+ftp://ftp.ensembl.org/pub/release-102/fasta/drosophila_melanogaster/dna/Drosophila_melanogaster.BDGP6.28.dna.toplevel.fa.gz
