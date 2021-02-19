@@ -1,4 +1,13 @@
 #!/bin/bash
+# This script loop throw the species directories under user specified species contining directory; using the species dir naming the taxonomy lineage record is retrieved from ncbi, 
+# appended in csv file and saved in user specified file
+# There are 2 mandatory arguments
+# arg1: the directory containing the species directories
+# arg2: the name of the taxonomy mapping csv file to be saved
+# example:
+# ./make_tax.sh data/raw/ tax_mapping.csv
+
+
 
 sp_dir=$1
 save_dir=$2

@@ -21,17 +21,30 @@ pd.set_option('display.max_colwidth', None)
 random.seed = 0
 np.random.seed = 0
 
+desc = """make_arch_test
 
+This script takes the path for data created by make_arch_all, path for species lineage csv created by make_tax, number for tested rank and rank value to test againist. 
+Count the nulls (which is filled with 0 and returned as 0_count) in each feature, applies 2 sample 2 tailed ttest and Manwhetney, correct using benferroni and returns
+parsed data architicture feature in 1 csv
+test results containing (feature,0_count,MannWhitney_p,ttest_p,MannWhitney_adj_p,ttest_adj_p,MannWhitney_adj_reject,ttest_adj_reject)
+filtered parsed data architicture features for only significant ones according to corrected p-value < 0.05
+"""
+use = "./make_arch_test.py --stats input_stats_dir --tax tax_file --tax_rank number --rank_value rank_value [--out_test output_test_file] [--out_parsed output_parsed_file] [--out_parsed_filtered output_filtered_file]"
+
+example = """example:
+
+./make_arch_test.py --stats data/output/ --tax data/tax_mapping.csv --tax_rank 10 --rank_value vertebrata
+"""
 # In[24]:
 
 
-parser=argparse.ArgumentParser()
+parser=argparse.ArgumentParser(description=desc,formatter_class=argparse.RawDescriptionHelpFormatter,usage=use,epilog=example)
 
-parser.add_argument('--stats', nargs='?',type=str, default='./data/output', help='Directory containning the nested csv stats for all species in form of (species,stats)')
-parser.add_argument('--tax', nargs='?',type=str, default='./data/tax_mapping.csv', help='File csv contianing the full lineage of all species in stats')
+parser.add_argument('--stats', nargs='?',type=str, help='Directory containning the nested csv stats for all species in form of (species,stats)')
+parser.add_argument('--tax', nargs='?',type=str, help='File csv contianing the full lineage of all species in stats')
 parser.add_argument('--out_test', nargs='?',type=str, default='test_result.csv', help='File to write the test results')
-parser.add_argument('--out_parsed', nargs='?',type=str, default='parsed_all.csv', help='File to write the test results')
-parser.add_argument('--out_parsed_filtered', nargs='?',type=str, default='parsed_filtered.csv', help='File to write the test results')
+parser.add_argument('--out_parsed', nargs='?',type=str, default='parsed_all.csv', help='File to write parsed data')
+parser.add_argument('--out_parsed_filtered', nargs='?',type=str, default='parsed_filtered.csv', help='File to write parsed data with filtered significant features')
 parser.add_argument('--tax_rank', nargs='?',type=int, default=10, help='the rank of lineage to be used e.g: 10 to use the supphylum')
 parser.add_argument('--rank_value', nargs='?',type=str, default="Vertebrata", help='value to test for in the tax rank e.g: Vertebrata to test Vert vs In-Vert in Subphylum')
 
@@ -79,7 +92,8 @@ def parse_df_from_tree_on(data_dir,on,use_dir_as_on= True):
 
 df = parse_df_from_tree_on(data_dir=data_dir,on="species",use_dir_as_on= True)
 
-df.to_csv(out_parsed)
+
+df[["species"] + [i for i in df.columns if i!="species"]].to_csv(out_parsed,index=False)
 # In[7]:
 
 
@@ -133,6 +147,6 @@ df_test['ttest_adj_reject'] = multipletests(df_test['ttest_p'],alpha=0.05,method
 # In[20]:
 
 
-df_test.sort_values(by='ttest_adj_p').to_csv(out_file)
+df_test.sort_values(by='ttest_adj_p').to_csv(out_file,index=False)
 
-df.loc[:,df.columns.isin(df_test.loc[(df_test['MannWhitney_adj_reject'] | df_test['ttest_adj_reject']),'feature'])].to_csv(out_filtered)
+df.loc[:,df.columns.isin(df_test.loc[(df_test['MannWhitney_adj_reject'] | df_test['ttest_adj_reject']),'feature'])].to_csv(out_filtered,index=False)
