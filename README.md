@@ -62,7 +62,7 @@ $ ./get_data.sh data/raw WgetMe.txt
 ```
 2.	get_len_gc
 *	Description <br>
-This script gets some stats (avg gc content, avg length, count ) for a user specified feature in gtf file using relevant fasta.
+This module gets stats (avg gc content, avg length and count ) for a custom user specified feature and filtration in a gtf file. Features extracted can differ from those served out of the box in make_arch_fet.
 *	Positional Arguments <br>
 There are 2 mandatory arguments : <br>
 arg1: the path to directory containing the species gtf and fasta files (uncompressed) with the following hirarchy: raw/species/ e.g (data/raw/Homo_Sapiens) <br>
