@@ -121,10 +121,12 @@ df['Flag'] = (df.loc[:,taxa_rank].str.lower() == rank_value.lower())
 # In[14]:
 
 
-test_dict = {'feature' : [],'0_count' : [],'MannWhitney_p' : [], 'ttest_p' : []}
+test_dict = {'feature' : [],'0_count' : [],"avg_"+rank_value.lower() : [],"avg_non_"+rank_value.lower() : [],'MannWhitney_p' : [], 'ttest_p' : []}
 for fet in df.select_dtypes(['float','int']):
     test_dict['feature'].append(fet)
     test_dict['0_count'].append((df[fet] == 0).sum())
+    test_dict["avg_"+rank_value.lower()].append(df.loc[df['Flag'] == True,fet].mean())
+    test_dict["avg_non_"+rank_value.lower()].append(df.loc[df['Flag'] == False,fet].mean())
     test_dict['MannWhitney_p'].append(mannwhitneyu(df[fet],df['Flag'],alternative='two-sided')[1])
     test_dict['ttest_p'].append(ttest_ind(df[fet],df['Flag'])[1])
 
