@@ -119,7 +119,7 @@ $ ./make_tax.sh data/raw/ tax_mapping.csv
 ```
 5.	Make_arch_test
 *	Description <br>
-This script takes the path for data created by make_arch_all, path for species lineage csv created by make_tax, number for tested rank and rank value to test againist. 
+This script takes the path for data created by make_arch_fet, path for species lineage csv created by make_tax, number for tested rank and rank value to test againist. 
 Count the nulls (which is filled with 0 and returned as 0_count) in each feature, applies 2 sample 2 tailed ttest and Manwhetney, correct using benferroni and returns <br>
 i.	parsed data architicture feature in 1 csv <br>
 ii.	test results containing (feature,0_count,avg_[rank_value],avg_non_[rank_value],MannWhitney_p,ttest_p,MannWhitney_adj_p,ttest_adj_p,MannWhitney_adj_reject,ttest_adj_reject) <br>
