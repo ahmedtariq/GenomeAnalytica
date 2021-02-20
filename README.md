@@ -4,7 +4,7 @@
 This is a package that provide tools to extract different genome architecture features, build taxonomy lineage and test features against certain value in taxonomy rank in fully automated pipeline.
 ## Flow
 <p align="center" >
-<img src="https://user-images.githubusercontent.com/32236950/108558551-be9cad80-7302-11eb-8638-2a23e787c951.png" />
+<img src="https://user-images.githubusercontent.com/32236950/108595323-f568d700-7387-11eb-93d0-c474a7045b76.png" />
 </p>
 
 1.	Make data directory and under it make raw directory under it make directory for each species and create a txt file containing 2 ftp links 1 for species genome gtf file and another for species genome fasta file like the following tree: <br>
