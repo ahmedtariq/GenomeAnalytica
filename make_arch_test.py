@@ -26,7 +26,7 @@ desc = """make_arch_test
 This script takes the path for data created by make_arch_all, path for species lineage csv created by make_tax, number for tested rank and rank value to test againist. 
 Count the nulls (which is filled with 0 and returned as 0_count) in each feature, applies 2 sample 2 tailed ttest and Manwhetney, correct using benferroni and returns
 parsed data architicture feature in 1 csv
-test results containing (feature,0_count,MannWhitney_p,ttest_p,MannWhitney_adj_p,ttest_adj_p,MannWhitney_adj_reject,ttest_adj_reject)
+test results containing (feature,0_count,avg_[rank_value],avg_non_[rank_value],MannWhitney_p,ttest_p,MannWhitney_adj_p,ttest_adj_p,MannWhitney_adj_reject,ttest_adj_reject)
 filtered parsed data architicture features for only significant ones according to corrected p-value < 0.05
 """
 use = "./make_arch_test.py --stats input_stats_dir --tax tax_file --tax_rank number --rank_value rank_value [--out_test output_test_file] [--out_parsed output_parsed_file] [--out_parsed_filtered output_filtered_file]"

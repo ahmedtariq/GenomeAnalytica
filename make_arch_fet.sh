@@ -10,8 +10,9 @@
 #	feature type: can be:
 #			     g for gene
 #			     e for exon
+#                            t for transcript
 #			     f for five_prime_utr
-#			     t for three_prime_utr
+#			     h for three_prime_utr
 #	e.g pg for protein coding gene; npt for non protein coding three_prime_utr
 # example: to calculate the stats of (non protein coding genes, protein coding exons and all five_prime_utr) for all species under data/raw/ use the following
 # ./make_arch_all.sh data/raw/ npg pe f
@@ -43,8 +44,8 @@ if [ $num_fets -eq 0 ]; then
 fi
 # check input feature args
 for fet in "${fets[@]}"; do
-	if [[ "${fet: -1}" != *g* && "${fet: -1}" != *e* && "${fet: -1}"  != *t* && $fet != *f* ]]; then
-		echo -e "${RED} last character in all args must be g (gene), e (exon), t (three_prime_utr) or f (five_prime_utr) ${NC}"
+	if [[ "${fet: -1}" != *g* && "${fet: -1}" != *e* && "${fet: -1}"  != *t* && "${fet: -1}" != *f* && "${fet: -1}" != *h* ]]; then
+		echo -e "${RED} last character in all args must be g (gene), e (exon), t (transcript) , h (three_prime_utr) or f (five_prime_utr) ${NC}"
 		exit 128
 	fi
 	if [[ "${fet::-1}" != *np* && "${fet::-1}" != *p* && "${fet::-1}" != "" ]]; then
@@ -67,9 +68,13 @@ for fet in "${fets[@]}"; do
 	elif [[ "${fet}" =~ "f" ]]; then
 		fet_arg="five_prime_utr"
 		filt="transcript_biotype=protein_coding"
-	elif [[ "${fet}" =~ "t" ]]; then
+	elif [[ "${fet}" =~ "h" ]]; then
 		fet_arg="three_prime_utr"
 		filt="transcript_biotype=protein_coding"
+        elif [[ "${fet}" =~ "t" ]]; then
+                fet_arg="transcript"
+                filt="transcript_biotype=protein_coding"
+
 	fi
 
 	if [[ "${fet}" =~ "p" ]] && [[ "${fet}" != *"n"*  ]]; then
