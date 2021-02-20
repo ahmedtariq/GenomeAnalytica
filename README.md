@@ -36,7 +36,7 @@ $ ./get_data.sh data/raw WgetMe.txt
 ```
 3.	Make features for all species under data/raw with the following command
 ```sh
-$ ./make_arch_fet.sh data/raw/ g pg npg e pe npe t pt npt f pf npf
+$ ./make_arch_fet.sh data/raw/ g pg npg e pe npe t pt npt f pf npf h ph nph
 ```
 4.	Make taxonomy lineage for all species under data/raw using the following command
 ```sh
@@ -93,8 +93,9 @@ arg2,3,4,...: 1 to 3 characters representing the features that will be filtered 
       feature type: can be: <br>
                            g for gene <br>
                            e for exon <br>
+                           t for transcript <br>
                            f for five_prime_utr <br>
-                           t for three_prime_utr <br>
+                           h for three_prime_utr <br>
      e.g pg for protein coding gene; npt for non protein coding three_prime_utr <br>
 *	Example: <br>
 to calculate the stats of (non protein coding genes, protein coding exons and all five_prime_utr) for all species under data/raw/ use the following
