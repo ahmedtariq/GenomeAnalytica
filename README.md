@@ -10,26 +10,26 @@ This is a package that provide tools to extract different genome architecture fe
 1.	Make data directory and under it make raw directory under it make directory for each species and create a txt file containing 2 ftp links 1 for species genome gtf file and another for species genome fasta file like the following tree: <br>
 data <br>
 ├── raw <br>
-│   ├── Caenorhabditis_elegans <br>
-│   │   └── WgetMe.txt <br>
-│   ├── Choloepus_hoffmanni <br>
-│   │   └── WgetMe.txt <br>
-│   ├── Chrysolophus_pictus <br>
-│   │   └── WgetMe.txt <br>
-│   ├── Ciona_intestinalis <br>
-│   │   └── WgetMe.txt <br>
-│   ├── Ciona_savignyi <br>
-│   │   └── WgetMe.txt <br>
-│   ├── Drosophila_melanogaster <br>
-│   │   └── WgetMe.txt <br>
-│   ├── Homo_sapiens <br>
-│   │   └── WgetMe.txt <br>
-│   ├── Monopterus_albus <br>
-│   │   └── WgetMe.txt <br>
-│   ├── Mus_musculus <br>
-│   │   └── WgetMe.txt <br>
-│   └── Saccharomyces_cerevisiae <br>
-│       └── WgetMe.txt <br>
+   ├── Caenorhabditis_elegans <br>
+   │   └── WgetMe.txt <br>
+   ├── Choloepus_hoffmanni <br>
+   │   └── WgetMe.txt <br>
+   ├── Chrysolophus_pictus <br>
+   │   └── WgetMe.txt <br>
+   ├── Ciona_intestinalis <br>
+   │   └── WgetMe.txt <br>
+   ├── Ciona_savignyi <br>
+   │   └── WgetMe.txt <br>
+   ├── Drosophila_melanogaster <br>
+   │   └── WgetMe.txt <br>
+   ├── Homo_sapiens <br>
+   │   └── WgetMe.txt <br>
+   ├── Monopterus_albus <br>
+   │   └── WgetMe.txt <br>
+   ├── Mus_musculus <br>
+   │   └── WgetMe.txt <br>
+   └── Saccharomyces_cerevisiae <br>
+       └── WgetMe.txt <br>
 2.	Download and unzip the data at each corresponding directory using the following command.
 ```sh
 $ ./get_data.sh data/raw WgetMe.txt
