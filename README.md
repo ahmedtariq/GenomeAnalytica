@@ -121,7 +121,7 @@ $ ./make_tax.sh data/raw/ tax_mapping.csv
 This script takes the path for data created by make_arch_all, path for species lineage csv created by make_tax, number for tested rank and rank value to test againist. 
 Count the nulls (which is filled with 0 and returned as 0_count) in each feature, applies 2 sample 2 tailed ttest and Manwhetney, correct using benferroni and returns <br>
 i.	parsed data architicture feature in 1 csv <br>
-ii.	test results containing (feature,0_count,MannWhitney_p,ttest_p,MannWhitney_adj_p,ttest_adj_p,MannWhitney_adj_reject,ttest_adj_reject) <br>
+ii.	test results containing (feature,0_count,avg_[rank_value],avg_non_[rank_value],MannWhitney_p,ttest_p,MannWhitney_adj_p,ttest_adj_p,MannWhitney_adj_reject,ttest_adj_reject) <br>
 iii.	filtered parsed data architicture features for only significant ones according to corrected p-value < 0.05 <br>
 *	Named Arguments: <br>
 -h, --help: show this help message and exit <br>
@@ -136,3 +136,8 @@ iii.	filtered parsed data architicture features for only significant ones accord
 ```sh
 $ ./make_arch_test.py --stats data/output/ --tax data/tax_mapping.csv --tax_rank 10 --rank_value vertebrata
 ```
+## Output
+| feature      | 0_count | avg_vertebrata     | avg_non_vertebrata     | MannWhitney_p     | ttest_p     | MannWhitney_adj_p     | ttest_adj_p     | MannWhitney_adj_reject     | ttest_adj_reject     |
+| :---        |    :----:   |          ---: |          ---: |          ---: |          ---: |          ---: |          ---: |          ---: |          ---: |
+| gene_-i_gene_biotype=protein_coding_count | 0 | 17616.4 | 12821.4 | 0.000145036 | 4.61E-08 | 0.005221295 | 1.66E-06 | TRUE | TRUE |
+| exon_-e_transcript_biotype=protein_coding_avg_len | 0 | 247.5974 | 382.6778 | 0.000145036 | 3.91E-05 | 0.005221295 | 0.001405841 | TRUE | TRUE |
