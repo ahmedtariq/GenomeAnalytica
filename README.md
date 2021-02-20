@@ -49,7 +49,7 @@ $ ./make_arch_test.py --stats data/output/ --tax data/tax_mapping.csv --tax_rank
 ## User Manual
 The package consists of three main commands to build standard features, build mapping and test them supplementary commands are available to batch download ftp links and build custom genome architecture features.
 ### Supplementary Commands
-1.	get_data
+1.	[get_data](https://github.com/ahmedtariq/genome_architecture/blob/master/get_data.sh)
 *	Description: <br>
 This script loop throw the species directories under user specified species containing directory; reading the user specified text file containing the ftp links for gtf and fasta then unzip them
 *	Positional Arguments <br>
@@ -60,7 +60,7 @@ arg2: the name of the files that contains the ftp link to download <br>
 ```sh
 $ ./get_data.sh data/raw WgetMe.txt
 ```
-2.	get_len_gc
+2.	[get_len_gc](https://github.com/ahmedtariq/genome_architecture/blob/master/get_len_gc.sh)
 *	Description <br>
 This module gets stats (avg gc content, avg length and count ) for a custom user specified feature and filtration in a gtf file. Features extracted can differ from those served out of the box in make_arch_fet.
 *	Positional Arguments <br>
@@ -80,7 +80,7 @@ $ bash get_len_gc.sh dat/raw/Homo_Sapiens gene
 $ bash get_len_gc.sh dat/raw/Homo_Sapiens exon -e transcript_biotype=proteing_coding
 ```
 ### Main Commands
-3.	make_arch_fet <br>
+3.	[make_arch_fet](https://github.com/ahmedtariq/genome_architecture/blob/master/make_arch_fet.sh) <br>
 *	Description <br>
 This script generalize applying stats like (avg gc content, avg length, count ) for all species under user input containing dir given that each species dir contains gtf and fasta file for species genome
 *	Positional Arguments <br>
@@ -106,7 +106,7 @@ To calculate all features
 ```sh
 $ ./make_arch_fet.sh data/raw/ g pg npg e pe npe t pt npt f pf npf
 ```
-4.	make_tax
+4.	[make_tax](https://github.com/ahmedtariq/genome_architecture/blob/master/make_tax.sh)
 *	Description <br>
 This script loop throw the species directories under user specified species contining directory; using the species dir naming the taxonomy lineage record is retrieved from ncbi, appended in csv file and saved in user specified file
 *	Positional Arguments <br>
@@ -117,7 +117,7 @@ arg2: the name of the taxonomy mapping csv file to be saved <br>
 ```sh
 $ ./make_tax.sh data/raw/ tax_mapping.csv
 ```
-5.	Make_arch_test
+5.	[make_arch_test](https://github.com/ahmedtariq/genome_architecture/blob/master/make_arch_test.py)
 *	Description <br>
 This script takes the path for data created by make_arch_fet, path for species lineage csv created by make_tax, number for tested rank and rank value to test againist. 
 Count the nulls (which is filled with 0 and returned as 0_count) in each feature, applies 2 sample 2 tailed ttest and Manwhetney, correct using benferroni and returns <br>
