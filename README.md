@@ -34,9 +34,16 @@ data <br>
 ```sh
 $ ./get_data.sh data/raw WgetMe.txt
 ```
-3.	Make features for all species under data/raw with the following command
+3.	Make features for all species under data/raw. Can be done either using a **Fast Method** mode or **Expert User** mode 
+* Fast Method: <br>
+e.g: creating statistics for (all, protein coding, non protein coding) for (gene, exon, transcript, three_prime_utr, five_prime_utr) <br>
 ```sh
 $ ./make_arch_fet.sh data/raw/ g pg npg e pe npe t pt npt f pf npf h ph nph
+```
+* Expert User: <br>
+e.g: creating statistics for protein coding exons <br>
+```sh
+for i in `ls data/raw/`; do echo $i; ./get_len_gc.sh $sp_dir/$i/ exon -i transcript_biotype=protein_coding ; done
 ```
 4.	Make taxonomy lineage for all species under data/raw using the following command
 ```sh
