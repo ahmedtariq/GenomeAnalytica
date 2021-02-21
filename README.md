@@ -7,6 +7,7 @@ This is a package that provide tools to extract different genome architecture fe
 <img src="https://user-images.githubusercontent.com/32236950/108633099-15c58e00-747b-11eb-8488-8cc80f0a9c8e.png" />
 </p>
 
+## End to End Demo
 1.	Make data directory and under it make raw directory under it make directory for each species and create a txt file containing 2 ftp links 1 for species genome gtf file and another for species genome fasta file like the following tree: <br>
 data <br>
 ├── raw <br>
@@ -30,6 +31,7 @@ data <br>
    │   └── WgetMe.txt <br>
    └── Saccharomyces_cerevisiae <br>
        └── WgetMe.txt <br>
+For using the same species as above just download from [data](https://github.com/ahmedtariq/genome_architecture/tree/master/data)
 2.	Download and unzip the data at each corresponding directory using the following command.
 ```sh
 $ ./get_data.sh data/raw WgetMe.txt
@@ -157,4 +159,8 @@ $ ./make_arch_test.py --stats data/output/ --tax data/tax_mapping.csv --tax_valu
 <img src="https://user-images.githubusercontent.com/32236950/108633175-85d41400-747b-11eb-86d4-376344d2741e.png" />
 </p>
 
-
+## Contributors
+[Ahmed Tarek](https://github.com/ahmedtariq) <br>
+[Abdullah Alkhawaja](https://github.com/Alkhawaja95) <br>
+[Ali El-Nisr](https://github.com/El-Nisr) <br>
+[Montaser Bellah Yasser](https://github.com/montaserbellahyasser) <br>
