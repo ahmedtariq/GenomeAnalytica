@@ -4,7 +4,7 @@
 This is a package that provide tools to extract different genome architecture features, build taxonomy lineage and test features against certain value in taxonomy rank in fully automated pipeline.
 ## Flow
 <p align="center" >
-<img src="https://user-images.githubusercontent.com/32236950/108595323-f568d700-7387-11eb-93d0-c474a7045b76.png" />
+<img src="https://user-images.githubusercontent.com/32236950/108633099-15c58e00-747b-11eb-8488-8cc80f0a9c8e.png" />
 </p>
 
 1.	Make data directory and under it make raw directory under it make directory for each species and create a txt file containing 2 ftp links 1 for species genome gtf file and another for species genome fasta file like the following tree: <br>
@@ -51,7 +51,7 @@ $ ./make_tax.sh data/raw/ tax_mapping.csv
 ```
 5.	Make test for calculated feature under data/output using the taxonomy lineage and specifying the 10th rank (supphilum) and (vertebrata) as the value to compare against using the following command:
 ```sh
-$ ./make_arch_test.py --stats data/output/ --tax data/tax_mapping.csv --tax_rank 10 --rank_value vertebrata
+$ ./make_arch_test.py --stats data/output/ --tax data/tax_mapping.csv --tax_value vertebrata
 ```
 ## User Manual
 The package consists of three main commands to build standard features, build mapping and test them supplementary commands are available to batch download ftp links and build custom genome architecture features.
@@ -126,7 +126,7 @@ $ ./make_tax.sh data/raw/ tax_mapping.csv
 ```
 5.	[make_arch_test](https://github.com/ahmedtariq/genome_architecture/blob/master/make_arch_test.py)
 *	Description <br>
-This script takes the path for data created by make_arch_fet, path for species lineage csv created by make_tax, number for tested rank and rank value to test againist. 
+This script takes the path for data created by make_arch_fet, path for species lineage csv created by make_tax, rank value to test againist. 
 Count the nulls (which is filled with 0 and returned as 0_count) in each feature, applies 2 sample 2 tailed ttest and Manwhetney, correct using benferroni and returns <br>
 i.	parsed data architicture feature in 1 csv <br>
 ii.	test results containing (feature,0_count,avg_[rank_value],avg_non_[rank_value],MannWhitney_p,ttest_p,MannWhitney_adj_p,ttest_adj_p,MannWhitney_adj_reject,ttest_adj_reject) <br>
@@ -138,14 +138,23 @@ iii.	filtered parsed data architicture features for only significant ones accord
 --out_test [OUT_TEST]: File to write the test results <br>
 --out_parsed [OUT_PARSED]: File to write parsed data <br>
 --out_parsed_filtered [OUT_PARSED_FILTERED]: File to write parsed data with filtered significant features <br>
---tax_rank [TAX_RANK]: the rank of lineage to be used e.g: 10 to use the supphylum <br>
---rank_value [RANK_VALUE]: value to test for in the tax rank e.g: Vertebrata to test Vert vs In-Vert in Subphylum <br>
+--out_fig [OUT_FIG]   png File to write boxplot figure <br>
+--tax_value [RANK_VALUE]: value to test for in the tax rank e.g: Vertebrata to test Vert vs In-Vert in Subphylum <br>
 *	Example: <br>
 ```sh
-$ ./make_arch_test.py --stats data/output/ --tax data/tax_mapping.csv --tax_rank 10 --rank_value vertebrata
+$ ./make_arch_test.py --stats data/output/ --tax data/tax_mapping.csv --tax_value vertebrata
 ```
 ## Output
+* test results
+
 | feature      | 0_count | avg_vertebrata     | avg_non_vertebrata     | MannWhitney_p     | ttest_p     | MannWhitney_adj_p     | ttest_adj_p     | MannWhitney_adj_reject     | ttest_adj_reject     |
 | :---        |    :----:   |          ---: |          ---: |          ---: |          ---: |          ---: |          ---: |          ---: |          ---: |
 | gene_-i_gene_biotype=protein_coding_count | 0 | 17616.4 | 12821.4 | 0.000145036 | 4.61E-08 | 0.005221295 | 1.66E-06 | TRUE | TRUE |
 | exon_-e_transcript_biotype=protein_coding_avg_len | 0 | 247.5974 | 382.6778 | 0.000145036 | 3.91E-05 | 0.005221295 | 0.001405841 | TRUE | TRUE |
+
+* siginificant features boxplot <br>
+<p align="center" >
+<img src="https://user-images.githubusercontent.com/32236950/108633175-85d41400-747b-11eb-86d4-376344d2741e.png" />
+</p>
+
+
