@@ -36,7 +36,7 @@ test results containing (feature,0_count,MannWhitney_p,ttest_p,MannWhitney_adj_p
 filtered parsed data architicture features for only significant ones according to corrected p-value < 0.05
 Box plot figure for adj_ttest significant features
 """
-use = "./make_arch_test.py --stats input_stats_dir --tax tax_file --tax_rank number --rank_value rank_value [--out_test output_test_file] [--out_parsed output_parsed_file] [--out_parsed_filtered output_filtered_file]"
+use = "./make_arch_test.py --stats input_stats_dir --tax tax_file --tax_value rank_value [--out_test output_test_file] [--out_parsed output_parsed_file] [--out_parsed_filtered output_filtered_file]"
 
 example = """example:
 
