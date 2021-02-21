@@ -29,7 +29,7 @@ np.random.seed = 0
 
 desc = """make_arch_test
 
-This script takes the path for data created by make_arch_all, path for species lineage csv created by make_tax, number for tested rank and rank value to test againist. 
+This script takes the path for data created by make_arch_all, path for species lineage csv created by make_tax, rank value to test againist. 
 Count the nulls (which is filled with 0 and returned as 0_count) in each feature, applies 2 sample 2 tailed ttest and Manwhetney, correct using benferroni and returns
 parsed data architicture feature in 1 csv
 test results containing (feature,0_count,MannWhitney_p,ttest_p,MannWhitney_adj_p,ttest_adj_p,MannWhitney_adj_reject,ttest_adj_reject)
@@ -40,7 +40,7 @@ use = "./make_arch_test.py --stats input_stats_dir --tax tax_file --tax_rank num
 
 example = """example:
 
-./make_arch_test.py --stats data/output/ --tax data/tax_mapping.csv --tax_rank 10 --rank_value vertebrata
+./make_arch_test.py --stats data/output/ --tax data/tax_mapping.csv --tax_value vertebrata
 """
 # In[24]:
 
@@ -53,8 +53,7 @@ parser.add_argument('--out_test', nargs='?',type=str, default='test_result.csv',
 parser.add_argument('--out_parsed', nargs='?',type=str, default='parsed_all.csv', help='File to write parsed data')
 parser.add_argument('--out_parsed_filtered', nargs='?',type=str, default='parsed_filtered.csv', help='File to write parsed data with filtered significant features')
 parser.add_argument('--out_fig', nargs='?',type=str, default='Sig_Fet_boxplot.png', help='png File to write boxplot figure')
-parser.add_argument('--tax_rank', nargs='?',type=int, default=10, help='the rank of lineage to be used e.g: 10 to use the supphylum')
-parser.add_argument('--rank_value', nargs='?',type=str, default="Vertebrata", help='value to test for in the tax rank e.g: Vertebrata to test Vert vs In-Vert in Subphylum')
+parser.add_argument('--tax_value', nargs='?',type=str, default="Vertebrata", help='value to test for in the tax rank e.g: Vertebrata to test Vert vs In-Vert in Subphylum')
 
 
 # In[25]:
@@ -71,8 +70,7 @@ tax_file = args.tax
 out_file = args.out_test
 out_parsed = args.out_parsed
 out_filtered = args.out_parsed_filtered
-taxa_rank = args.tax_rank
-rank_value = args.rank_value
+rank_value = args.tax_value
 out_fig = args.out_fig
 
 
@@ -109,22 +107,9 @@ df_map = pd.read_csv(tax_file,header=None,usecols=[i for i in range(0,11,1)])
 
 
 # In[9]:
-
-
-df_map = df_map.loc[:,[0,taxa_rank]]
-
-
-# In[10]:
-
-
+df_map['Flag'] = (df_map.apply(lambda x: x.str.lower() if x.dtype=='object' else x) == rank_value.lower()).any(axis=1)
+df_map = df_map.loc[:,[0,'Flag']]
 df = df.merge(df_map,left_on="species",right_on=0,how='left').drop(0,axis=1)
-
-
-# In[13]:
-
-
-df['Flag'] = (df.loc[:,taxa_rank].str.lower() == rank_value.lower())
-
 
 # In[14]:
 
