@@ -43,7 +43,7 @@ $ ./make_arch_fet.sh data/raw/ g pg npg e pe npe t pt npt f pf npf h ph nph
 * Expert User: <br>
 e.g: creating statistics for protein coding exons <br>
 ```sh
-for i in `ls data/raw/`; do echo $i; ./get_len_gc.sh $sp_dir/$i/ exon -i transcript_biotype=protein_coding ; done
+for i in `ls data/raw/`; do echo $i; ./get_len_gc.sh data/raw/$i/ exon -i transcript_biotype=protein_coding ; done
 ```
 4.	Make taxonomy lineage for all species under data/raw using the following command
 ```sh
