@@ -28,6 +28,7 @@ This is a package that provide tools to extract different genome architecture fe
 <img src="https://user-images.githubusercontent.com/32236950/108633099-15c58e00-747b-11eb-8488-8cc80f0a9c8e.png" />
 </p>
 
+
 ## Prerequisites
 1. Option 1 - Manual <br>
 Download and install the latest version of the following. <br>
@@ -40,6 +41,7 @@ Download and install the latest version of the following. <br>
 [statsmodels](https://anaconda.org/anaconda/statsmodels) <br>
 [matplotlib](https://anaconda.org/conda-forge/matplotlib) <br>
 [seaborn](https://anaconda.org/anaconda/seaborn) <br>
+
 2. Option 2 - Automated <br>
 Make conda environment and use the requirements.txt to install needed libraries
 ```sh
@@ -48,6 +50,8 @@ conda create --name <env_name> --file requirements.txt
 ```sh
 conda activate <env_name>
 ```
+
+
 ## End to End Demo
 1.	Make data directory and under it make raw directory under it make directory for each species and create a txt file containing 2 ftp links 1 for species genome gtf file and another for species genome fasta file like the following tree: <br>
 ```sh
@@ -75,10 +79,12 @@ data
        └── WgetMe.txt
 ```
 For using the same species as above just download from [data](https://github.com/ahmedtariq/genome_architecture/tree/master/data)
+
 2.	Download and unzip the data at each corresponding directory using the following command.
 ```sh
 $ ./get_data.sh data/raw WgetMe.txt
 ```
+
 3.	Make features for all species under data/raw. Can be done either using a **Fast Mode** mode or **Expert Mode** mode 
 * Option 1 - Fast Mode: <br>
 e.g: creating statistics for (all, protein coding, non protein coding) for (gene, exon, transcript, three_prime_utr, five_prime_utr) <br>
@@ -90,16 +96,21 @@ e.g: creating statistics for protein coding exons <br>
 ```sh
 for i in `ls data/raw/`; do echo $i; ./get_len_gc.sh data/raw/$i/ exon -i transcript_biotype=protein_coding ; done
 ```
+
 4.	Make taxonomy lineage for all species under data/raw using the following command
 ```sh
 $ ./make_tax.sh data/raw/ tax_mapping.csv
 ```
+
 5.	Make test for calculated feature under data/output using the taxonomy lineage and specifying the 10th rank (supphilum) and (vertebrata) as the value to compare against using the following command:
 ```sh
 $ ./make_arch_test.py --stats data/output/ --tax data/tax_mapping.csv --tax_value vertebrata
 ```
+
+
 ## User Manual
 The package consists of three main commands to build standard features, build mapping and test them supplementary commands are available to batch download ftp links and build custom genome architecture features.
+
 ### Supplementary Commands
 1.	[get_data](https://github.com/ahmedtariq/genome_architecture/blob/master/get_data.sh)
 *	Description: <br>
@@ -112,6 +123,7 @@ arg2: the name of the files that contains the ftp link to download <br>
 ```sh
 $ ./get_data.sh data/raw WgetMe.txt
 ```
+
 2.	[get_len_gc](https://github.com/ahmedtariq/genome_architecture/blob/master/get_len_gc.sh)
 *	Description <br>
 This module gets stats (avg gc content, avg length and count ) for a custom user specified feature and filtration in a gtf file. Features extracted can differ from those served out of the box in make_arch_fet.
@@ -131,6 +143,7 @@ $ bash get_len_gc.sh dat/raw/Homo_Sapiens gene
 ```sh
 $ bash get_len_gc.sh dat/raw/Homo_Sapiens exon -e transcript_biotype=proteing_coding
 ```
+
 ### Main Commands
 3.	[make_arch_fet](https://github.com/ahmedtariq/genome_architecture/blob/master/make_arch_fet.sh) <br>
 *	Description <br>
@@ -158,6 +171,7 @@ To calculate all features
 ```sh
 $ ./make_arch_fet.sh data/raw/ g pg npg e pe npe t pt npt f pf npf
 ```
+
 4.	[make_tax](https://github.com/ahmedtariq/genome_architecture/blob/master/make_tax.sh)
 *	Description <br>
 This script loop throw the species directories under user specified species contining directory; using the species dir naming the taxonomy lineage record is retrieved from ncbi, appended in csv file and saved in user specified file
@@ -169,6 +183,7 @@ arg2: the name of the taxonomy mapping csv file to be saved <br>
 ```sh
 $ ./make_tax.sh data/raw/ tax_mapping.csv
 ```
+
 5.	[make_arch_test](https://github.com/ahmedtariq/genome_architecture/blob/master/make_arch_test.py)
 *	Description <br>
 This script takes the path for data created by make_arch_fet, path for species lineage csv created by make_tax, rank value to test againist. 
@@ -189,6 +204,8 @@ iii.	filtered parsed data architicture features for only significant ones accord
 ```sh
 $ ./make_arch_test.py --stats data/output/ --tax data/tax_mapping.csv --tax_value vertebrata
 ```
+
+
 ## Output
 * test results
 
@@ -201,6 +218,7 @@ $ ./make_arch_test.py --stats data/output/ --tax data/tax_mapping.csv --tax_valu
 <p align="center" >
 <img src="https://user-images.githubusercontent.com/32236950/108633175-85d41400-747b-11eb-86d4-376344d2741e.png" />
 </p>
+
 
 ## Contributors
 [Ahmed Tarek](https://github.com/ahmedtariq) <br>
