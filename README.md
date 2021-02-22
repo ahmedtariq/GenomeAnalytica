@@ -45,10 +45,10 @@ Download and install the latest version of the following. <br>
 2. Option 2 - Automated <br>
 Make conda environment and use the requirements.txt to install needed libraries
 ```sh
-conda create --name <env_name> --file requirements.txt
+$ conda create --name <env_name> --file requirements.txt
 ```
 ```sh
-conda activate <env_name>
+$ conda activate <env_name>
 ```
 
 
