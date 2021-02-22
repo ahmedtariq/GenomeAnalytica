@@ -1,48 +1,91 @@
 # genome_architecture
 
+
+<!-- TABLE OF CONTENTS -->
+<details open="open">
+  <summary>Table of Contents</summary>
+  <ol>
+    <li><a href="#package-description">Package Description</a></li>
+    <li><a href="#flow">Flow</a></li>
+    <li><a href="#end-to-end-demo">End to End Demo</a></li>
+    <li>
+      <a href="#user-manual">User Manual</a>
+      <ul>
+        <li><a href="#supplementary-commands">Supplementary Commands</a></li>
+        <li><a href="#main-commands">Main Commands</a></li>
+      </ul>
+    </li>
+    <li><a href="#output">Output</a></li>
+    <li><a href="#contributors">Contributors</a></li>
+  </ol>
+</details>
+
 ## Package Description
 This is a package that provide tools to extract different genome architecture features, build taxonomy lineage and test features against certain value in taxonomy rank in fully automated pipeline.
 ## Flow
+
 <p align="center" >
 <img src="https://user-images.githubusercontent.com/32236950/108633099-15c58e00-747b-11eb-8488-8cc80f0a9c8e.png" />
 </p>
 
+## Prerequisites
+1. Option 1 - Manual <br>
+Download and install the latest version of the following. <br>
+* BASH <br>
+[bedtools](https://anaconda.org/bioconda/bedtools) <br>
+[entrez-direct](https://anaconda.org/bioconda/entrez-direct) <br>
+* Python <br>
+[pandas](https://anaconda.org/anaconda/pandas) <br>
+[scipy](https://anaconda.org/anaconda/scipy) <br>
+[statsmodels](https://anaconda.org/anaconda/statsmodels) <br>
+[matplotlib](https://anaconda.org/conda-forge/matplotlib) <br>
+[seaborn](https://anaconda.org/anaconda/seaborn) <br>
+2. Option 2 - Automated <br>
+Make conda environment and use the requirements.txt to install needed libraries
+```sh
+conda create --name <env_name> --file requirements.txt
+```
+```sh
+conda activate <env_name>
+```
 ## End to End Demo
 1.	Make data directory and under it make raw directory under it make directory for each species and create a txt file containing 2 ftp links 1 for species genome gtf file and another for species genome fasta file like the following tree: <br>
-data <br>
-├── raw <br>
-   ├── Caenorhabditis_elegans <br>
-   │   └── WgetMe.txt <br>
-   ├── Choloepus_hoffmanni <br>
-   │   └── WgetMe.txt <br>
-   ├── Chrysolophus_pictus <br>
-   │   └── WgetMe.txt <br>
-   ├── Ciona_intestinalis <br>
-   │   └── WgetMe.txt <br>
-   ├── Ciona_savignyi <br>
-   │   └── WgetMe.txt <br>
-   ├── Drosophila_melanogaster <br>
-   │   └── WgetMe.txt <br>
-   ├── Homo_sapiens <br>
-   │   └── WgetMe.txt <br>
-   ├── Monopterus_albus <br>
-   │   └── WgetMe.txt <br>
-   ├── Mus_musculus <br>
-   │   └── WgetMe.txt <br>
-   └── Saccharomyces_cerevisiae <br>
-       └── WgetMe.txt <br>
+```sh
+data
+├── raw
+   ├── Caenorhabditis_elegans
+   │   └── WgetMe.txt
+   ├── Choloepus_hoffmanni
+   │   └── WgetMe.txt
+   ├── Chrysolophus_pictus
+   │   └── WgetMe.txt
+   ├── Ciona_intestinalis
+   │   └── WgetMe.txt
+   ├── Ciona_savignyi
+   │   └── WgetMe.txt
+   ├── Drosophila_melanogaster
+   │   └── WgetMe.txt
+   ├── Homo_sapiens
+   │   └── WgetMe.txt
+   ├── Monopterus_albus
+   │   └── WgetMe.txt
+   ├── Mus_musculus
+   │   └── WgetMe.txt
+   └── Saccharomyces_cerevisiae
+       └── WgetMe.txt
+```
 For using the same species as above just download from [data](https://github.com/ahmedtariq/genome_architecture/tree/master/data)
 2.	Download and unzip the data at each corresponding directory using the following command.
 ```sh
 $ ./get_data.sh data/raw WgetMe.txt
 ```
-3.	Make features for all species under data/raw. Can be done either using a **Fast Method** mode or **Expert User** mode 
-* Fast Method: <br>
+3.	Make features for all species under data/raw. Can be done either using a **Fast Mode** mode or **Expert Mode** mode 
+* Option 1 - Fast Mode: <br>
 e.g: creating statistics for (all, protein coding, non protein coding) for (gene, exon, transcript, three_prime_utr, five_prime_utr) <br>
 ```sh
 $ ./make_arch_fet.sh data/raw/ g pg npg e pe npe t pt npt f pf npf h ph nph
 ```
-* Expert User: <br>
+* Option 2 - Expert Mode: <br>
 e.g: creating statistics for protein coding exons <br>
 ```sh
 for i in `ls data/raw/`; do echo $i; ./get_len_gc.sh data/raw/$i/ exon -i transcript_biotype=protein_coding ; done
