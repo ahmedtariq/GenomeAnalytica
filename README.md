@@ -24,7 +24,17 @@
 </details>
 
 ## Package Description
-This is a package that provide tools to extract different genome architecture features, build taxonomy lineage and test features against certain value in taxonomy rank in fully automated pipeline.
+This is a package that provide tools to extract different genome architecture features, build taxonomy lineage and test features against certain value in taxonomy rank in fully automated pipeline. <br>
+<br>
+The package is very user friendly allowing users to ask question like:
+- Does Vertebrates have a significant GC content than other species ?
+- What are the genome architecture features that significant in Eukaryotes ?
+- What are the features that signifies Betacoronavirus from other Riboviria ?
+
+[Output](#output) of the genomeAnalytica package is a csv similar to common deferential expression experiments (features with adjusted p-values and averages) and a boxplot figures for significant features. <br>
+
+The package is providing an end to end dedicative pipeline for investigating genomic architecture features which is unique to this package as far as we know.
+
 ## Flow
 
 <p align="center" >
@@ -229,7 +239,7 @@ $ ./make_arch_test.py --stats data/output/ --tax data/tax_mapping.csv --tax_valu
 ```
 
 
-## Output
+##  <a name="output">Output</a>
 * test results
 
 | feature      | 0_count | avg_vertebrata     | avg_non_vertebrata     | MannWhitney_p     | ttest_p     | MannWhitney_adj_p     | ttest_adj_p     | MannWhitney_adj_reject     | ttest_adj_reject     |
