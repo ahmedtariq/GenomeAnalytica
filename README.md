@@ -1,4 +1,4 @@
-# genomeAnalytica
+# GenomeAnalytica
 
 <p align="center" >
 <img src="https://user-images.githubusercontent.com/32236950/110198038-42ed4580-7e58-11eb-9d37-f44c2f330f94.png" width="100" height="100" />
